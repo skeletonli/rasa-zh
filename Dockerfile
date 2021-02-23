@@ -8,7 +8,7 @@ USER root
 
 RUN apt-get install --assume-yes apt-utils && \
 	apt-get install -y gcc && \
-	apt-get install g++ && \
+	apt-get install -y g++ && \
 	apt-get autoremove -y
 
 RUN pip install spacy==2.3.5 spacy-lookups-data --no-cache-dir
