@@ -1,4 +1,4 @@
-FROM rasa/rasa:2.1.2-spacy-en
+FROM rasa/rasa:2.3.2-spacy-en
 
 # Use subdirectory as working directory
 WORKDIR /app
