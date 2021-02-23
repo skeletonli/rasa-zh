@@ -20,7 +20,7 @@ pipeline:
   - name: ResponseSelector
     epochs: 100
 
-# Configuration for Rasa Core.
+# Configuration for Rasa Core.Test
 # https://rasa.com/docs/rasa/core/policies/
 policies:
   - name: RulePolicy
