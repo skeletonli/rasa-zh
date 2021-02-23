@@ -1,0 +1,38 @@
+name: alici
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy-image:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取master分支
+      - name: Checkout
+        uses: actions/checkout@master
+      # 设置qemu来编译多个平台的镜像
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      # 设置buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      # 配置缓存加快编译速度
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-      
+      - name: Publish to Docker Repository
+        uses: docker/build-push-action@v1
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com       
+          repository: lightencancer/rasa-zh
+          username: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} # 用户名
+          password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} # 密码
+          tag_with_sha: true
+          image_version: 'v1.0'
+          docker_file: '.'
+      - name: Get pre step result output image_pull_url
+        run: echo "The time was ${{ steps.buildAndPushImage.outputs.image_pull_url }}"
