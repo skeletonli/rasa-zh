@@ -6,9 +6,7 @@ WORKDIR /app
 # Change back to root user to install dependencies
 USER root
 
-RUN apt-get install --assume-yes apt-utils && \
-	apt-get install -y gcc && \
-	apt-get install -y g++ && \
+RUN apt-get install -y gcc && \	
 	apt-get autoremove -y
 
 RUN pip install spacy==2.3.5 spacy-lookups-data --no-cache-dir
